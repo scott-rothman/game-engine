@@ -4,20 +4,21 @@
 }
 
 .actor {
-  position: absolute;
+  bottom: 0;
   left: 50%;
   height: 35px;
-  bottom: 0;
-  transform: translate(-50%, -50%);
+  position: absolute;
+  transform: translateX(-50%);
+  transition: transform ease-in-out .25s;
   width: 75px;
 }
 
 .actor.facing-right {
-  transform: translate(-50%, -50%) rotate(10deg);
+  transform: translateX(-50%) rotate(10deg);
 }
 
 .actor.facing-left {
-  transform: translate(-50%, -50%) rotate(-10deg);
+  transform: translateX(-50%) rotate(-10deg);
 }
 
 .actor.facing-right .actor__flange,

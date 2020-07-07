@@ -1,8 +1,3 @@
-const UP = 87;
-const DOWN = 83;
-const LEFT = 65;
-const RIGHT = 68;
-
 export class Actor {
   constructor() {
     this.actor = document.querySelector('.actor');
@@ -22,7 +17,12 @@ export class Actor {
       elem: rightArmElem,
       rotation: -20,
     }
-    
+
+    this.jumpIsSet = true;
+    this.isJumping = false;
+    this.isFalling = false;
+    this.curJumpDestination = 0;
+    this.curJumpOrigin = 0;
   }
 
   moveLeft() {
@@ -108,6 +108,60 @@ export class Actor {
     } 
 
     this.rightArm.elem.style.transform = `rotate(${this.rightArm.rotation}deg)`;
+  }
+
+  jump() {
+    const JUMP_DURATION = 500;
+    const JUMP_MAX = 300;
+
+    const curPosY = window.innerHeight - this.actor.getBoundingClientRect().bottom;
+    let JUMP_RATE = ((1 - (curPosY/300)) * 20) + 5;
+    if (JUMP_RATE <= 5) {
+      JUMP_RATE = 5;
+    }
+
+    console.log(JUMP_RATE);    
+
+    if (this.jumpIsSet) {
+      this.jumpIsSet = false;
+      this.isJumping = true;
+    }
+
+    if (this.isJumping) {
+      if (curPosY >= JUMP_MAX) {
+        this.isJumping = false;
+        this.isFalling = true;
+      } else {
+        let moveToY = curPosY + JUMP_RATE;
+        this.actor.style.bottom = `${moveToY}px`;
+      }
+    }
+
+    if (this.isFalling) {
+      if (curPosY <= 0) {
+        this.isFalling = false;
+        this.jumpIsSet = true;
+      } else {
+        let moveToY = curPosY - JUMP_RATE;
+        this.actor.style.bottom = `${moveToY}px`;
+      }
+    }
+  }
+
+  fall() {
+    const curPosY = window.innerHeight - this.actor.getBoundingClientRect().bottom;
+    let JUMP_RATE = ((1 - (curPosY/300)) * 20) + 5;
+    if (JUMP_RATE <= 5) {
+      JUMP_RATE = 5;
+    }
+
+    if (curPosY <= 0) {
+      this.jumpIsSet = true;
+    } else {
+      let moveToY = curPosY - JUMP_RATE;
+      this.actor.style.bottom = `${moveToY}px`;
+    }
+
   }
 }
 

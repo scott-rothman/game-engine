@@ -31,5 +31,11 @@ const loop = window.setInterval(() => {
     } else {
       actor.lowerRightArm();
     }
+
+    if (controller.input.has('J')) {
+      actor.jump();
+    } else {
+      actor.fall();
+    }
   });
 }, FRAME_DURATION);

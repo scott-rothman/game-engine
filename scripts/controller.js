@@ -4,6 +4,7 @@ const LEFT = 65;
 const RIGHT = 68;
 const SHOOT_LEFT = 97;
 const SHOOT_RIGHT = 98;
+const JUMP = 99;
 
 export class Controller {
   constructor() {
@@ -24,6 +25,9 @@ export class Controller {
         case SHOOT_RIGHT:
           this.input.add('S_R');
           break;
+        case JUMP:
+            this.input.add('J');
+            break;
         default:
           break;
       }
@@ -42,6 +46,9 @@ export class Controller {
           break;
         case SHOOT_RIGHT:
           this.input.delete('S_R');
+          break;
+        case JUMP:
+          this.input.delete('J');
           break;
         default:
           break;
