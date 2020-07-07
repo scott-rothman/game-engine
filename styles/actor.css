@@ -53,7 +53,6 @@
 .actor__arm--left {
   left: 0;
   transform: rotate(20deg);
-  transition: transform 1s ease-in-out;
 }
 
 .actor__arm.shooting {

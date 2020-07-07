@@ -50,12 +50,64 @@ export class Actor {
     this.actor.classList.add('idle');
   }
 
-  shootLeft() {
+  shootLeftArm() {
     const rotationMin = 20;
-    const rotateMax = 150;
+    const rotationMax = 150;
     const rate = 5;
 
-    let curRotation = this.leftArm
+    this.leftArm.rotation += rate;
+    if (this.leftArm.rotation >= rotationMax) {
+      this.leftArm.rotation = rotationMax;
+    } else if (this.leftArm.rotation <= rotationMin) {
+      this.leftArm.rotation = rotationMin;
+    } 
+
+    this.leftArm.elem.style.transform = `rotate(${this.leftArm.rotation}deg)`;    
+  }
+
+  shootRightArm() {
+    const rotationMin = -20;
+    const rotationMax = -150;
+    const rate = -5;
+
+    this.rightArm.rotation += rate;
+    if (this.rightArm.rotation <= rotationMax) {
+      this.rightArm.rotation = rotationMax;
+    } else if (this.rightArm.rotation >= rotationMin) {
+      this.rightArm.rotation = rotationMin;
+    } 
+
+    this.rightArm.elem.style.transform = `rotate(${this.rightArm.rotation}deg)`;    
+  }
+
+  lowerLeftArm() {
+    const rotationMin = 20;
+    const rotationMax = 150;
+    const rate = 5;
+
+    this.leftArm.rotation -= rate;
+    if (this.leftArm.rotation >= rotationMax) {
+      this.leftArm.rotation = rotationMax;
+    } else if (this.leftArm.rotation <= rotationMin) {
+      this.leftArm.rotation = rotationMin;
+    } 
+
+    this.leftArm.elem.style.transform = `rotate(${this.leftArm.rotation}deg)`;
+  }
+
+  lowerRightArm() {
+    const rotationMin = -20;
+    const rotationMax = -150;
+    const rate = -5;
+
+    this.rightArm.rotation -= rate;
+    if (this.rightArm.rotation <= rotationMax) {
+      this.rightArm.rotation = rotationMax;
+    } else if (this.rightArm.rotation >= rotationMin) {
+      this.rightArm.rotation = rotationMin;
+    } 
+
+    this.rightArm.elem.style.transform = `rotate(${this.rightArm.rotation}deg)`;
   }
 }
 
