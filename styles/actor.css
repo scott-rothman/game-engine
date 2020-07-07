@@ -6,10 +6,10 @@
 .actor {
   position: absolute;
   left: 50%;
-  height: 150px;
-  top: 50%;
+  height: 35px;
+  bottom: 0;
   transform: translate(-50%, -50%);
-  width: 200px;
+  width: 75px;
 }
 
 .actor.facing-right {
@@ -35,19 +35,43 @@
   border-top-left-radius: 30%;
   border-top-right-radius: 30%;
   position: absolute;
-  height: 100px;
+  height: 25px;
   top: 0;
-  width: 200px;
+  width: 75px;
   z-index: 100;
+}
+
+.actor__arm {
+  background: var(--actor-primary);
+  height: 20px;
+  position: absolute;
+  top: 50%;
+  transform-origin: center top;
+  width: 5px;
+}
+
+.actor__arm--left {
+  left: 0;
+  transform: rotate(20deg);
+  transition: transform 1s ease-in-out;
+}
+
+.actor__arm.shooting {
+  transform: rotate(150deg);
+}
+
+.actor__arm--right {
+  left: calc(100% - 5px);
+  transform: rotate(-20deg);
 }
 
 .actor__bottom {
   bottom: 0;
   display: flex;
-  height: 50px;
+  height: 10px;
   justify-content: space-between;
   position: absolute;
-  width: 200px;
+  width: 75px;
   z-index: 50;
 }
 
@@ -57,6 +81,7 @@
   border-bottom-left-radius: 50%;
   border-bottom-right-radius: 50%;
   flex: 0 0 calc(25% - 3px);
+  height: 15px;
 }
 
 .actor__flange.walking {
@@ -78,18 +103,18 @@
 
 @keyframes flange{
   0% {
-    transform: translateY(-10px);
+    transform: translateY(-7px);
   }
   25% {
     transform: translateY(-5px);
   }
   50% {
-    transform: translateY(-10px);
+    transform: translateY(-7px);
   }
   75% {
-    transform: translateY(-15px)
+    transform: translateY(-10px)
   }
   100% {
-    transform: translateY(-10px);
+    transform: translateY(-7px);
   }
 }

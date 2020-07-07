@@ -6,12 +6,21 @@ const actor = new Actor();
 
 const FRAME_DURATION = (1/60) * 1000;
 const loop = window.setInterval(() => {
-  if (controller.directions.has('L')) {
-    actor.moveLeft(); 
-  }
+  window.requestAnimationFrame(() => {
+    if (controller.directions.has('L')) {
+      actor.moveLeft(); 
+    }
+  
+    if (controller.directions.has('R')) {
+      actor.moveRight();
+    }
 
-  if (controller.directions.has('R')) {
-    actor.moveRight();
-  }
+    if (controller.directions.has('S_L')) {
+      actor.shootLeft();
+    }
 
+    if (controller.directions.has('S_R')) {
+      actor.shootRight();
+    }
+  });
 }, FRAME_DURATION);
