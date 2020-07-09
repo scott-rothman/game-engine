@@ -110,17 +110,16 @@ export class Actor {
     this.rightArm.elem.style.transform = `rotate(${this.rightArm.rotation}deg)`;
   }
 
-  jump() {
+  async jump() {
     const JUMP_DURATION = 500;
-    const JUMP_MAX = 300;
+    const JUMP_MAX = 400;
 
     const curPosY = window.innerHeight - this.actor.getBoundingClientRect().bottom;
-    let JUMP_RATE = ((1 - (curPosY/300)) * 20) + 5;
-    if (JUMP_RATE <= 5) {
-      JUMP_RATE = 5;
-    }
-
-    console.log(JUMP_RATE);    
+    let JUMP_RATE = ((1 - (curPosY/JUMP_MAX)) * 15) + 2;
+    if (JUMP_RATE <= 2) {
+      JUMP_RATE = 2;
+    }  
+    console.log(curPosY);
 
     if (this.jumpIsSet) {
       this.jumpIsSet = false;
@@ -129,6 +128,7 @@ export class Actor {
 
     if (this.isJumping) {
       if (curPosY >= JUMP_MAX) {
+        await this.delay(150);
         this.isJumping = false;
         this.isFalling = true;
       } else {
@@ -136,11 +136,12 @@ export class Actor {
         this.actor.style.bottom = `${moveToY}px`;
       }
     }
-
+    
     if (this.isFalling) {
       if (curPosY <= 0) {
         this.isFalling = false;
         this.jumpIsSet = true;
+        this.actor.style.bottom = `0px`;
       } else {
         let moveToY = curPosY - JUMP_RATE;
         this.actor.style.bottom = `${moveToY}px`;
@@ -149,19 +150,30 @@ export class Actor {
   }
 
   fall() {
+    const JUMP_MAX = 400;
     const curPosY = window.innerHeight - this.actor.getBoundingClientRect().bottom;
-    let JUMP_RATE = ((1 - (curPosY/300)) * 20) + 5;
-    if (JUMP_RATE <= 5) {
-      JUMP_RATE = 5;
+    let jumpRate = ((1 - (curPosY/JUMP_MAX)) * 15) + 2;
+    if (jumpRate <= 2) {
+      jumpRate = 2;
     }
 
-    if (curPosY <= 0) {
-      this.jumpIsSet = true;
-    } else {
-      let moveToY = curPosY - JUMP_RATE;
-      this.actor.style.bottom = `${moveToY}px`;
+    if (this.isFalling) {
+      if (curPosY <= 0) {
+        this.isFalling = false;
+        this.jumpIsSet = true;
+        this.actor.style.bottom = `0px`;
+      } else {
+        let moveToY = curPosY - jumpRate;
+        this.actor.style.bottom = `${moveToY}px`;
+      }
     }
+  }
 
+  delay(duration) {
+    return new Promise((resolve) => {
+      window.setTimeout(() => {
+        resolve();
+      }, duration);
+    });
   }
 }
-

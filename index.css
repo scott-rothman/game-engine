@@ -9,3 +9,8 @@
     transform: translate(-50%, 0);
     width: 800px;
 }
+
+body, 
+html {
+    overflow: hidden;
+}

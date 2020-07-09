@@ -39,3 +39,18 @@ const loop = window.setInterval(() => {
     }
   });
 }, FRAME_DURATION);
+
+window.addEventListener('buttonReleased', async (e) => {
+  if (e.detail.key ==='J') {
+    await delay(150);
+    actor.isFalling = true;
+  }
+});
+
+function delay(duration) {
+  return new Promise((resolve) => {
+    window.setTimeout(() => {
+      resolve();
+    }, duration);
+  });
+}
